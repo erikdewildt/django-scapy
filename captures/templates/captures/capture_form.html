@@ -1,0 +1,22 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <form class="form-horizontal form-inline" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>Upload Capture</h2>
+
+    <div class="ui form">
+        {{ form|crispy }}
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="ui green button">Submit</button>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul>
+    {% for capture in captures %}
+        <li>{{ capture.name }} - {{ capture.file }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
