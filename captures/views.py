@@ -16,6 +16,9 @@ class CaptureCreate(CreateView):
 
 
 class CaptureList(ListView):
+    """
+    View for the list of uploaded captures.
+    """
     model = Capture
     context_object_name = 'captures'
 
