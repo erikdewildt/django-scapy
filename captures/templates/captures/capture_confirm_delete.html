@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block menu2 %}
+    {% include "captures_menu2.html" %}
+{% endblock menu2 %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="ui four column row">
+        <div class="column">
+            <h2 class="ui header">
+                <i class="remove icon"></i>
+                <div class="content">
+                Confirm delete
+                <div class="sub header">Confirm delete of capture file</div>
+                </div>
+            </h2>
+        </div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+    </div>
+</div>
+
+<div class="ui divider"></div>
+
+<form action="" method="post">{% csrf_token %}
+    <div class="ui negative message">
+        <div class="header">
+            Confirm delete
+        </div>
+        <p>Are you sure you want to delete "{{ object }}" ?</p>
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="ui red button"><i class="remove icon"></i>Remove</button>
+        <a class="ui blue button" href="{% url "captures:capture-list" %}"><i class="cancel icon"></i> Cancel</a>
+    </div>
+</form>
+
+
+
+{% endblock content %}

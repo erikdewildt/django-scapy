@@ -1,34 +1,45 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block menu2 %}
     {% include "captures_menu2.html" %}
 {% endblock menu2 %}
 
 {% block content %}
-<div class="ui two column grid">
-    <div class="column">
-        <form class="form-horizontal form-inline" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h2>Upload Capture</h2>
-
-            <div class="ui form">
-
-
-                <label for="id_name">Name:</label>
-                <input id="id_name" maxlength="64" name="name" type="text" /><
-
-
-                <label for="id_description">Description:</label>
-                <textarea cols="40" id="id_description" name="description" rows="10"></textarea>
-
-                <label for="id_file">File:</label> <input id="id_file" name="file" type="file" /></p>
-
-            </div>
-
-            <div class="form-actions">
-                <button type="submit" class="ui blue button">Submit</button>
-            </div>
-        </form>
+<div class="ui grid">
+    <div class="ui four column row">
+        <div class="column">
+            <h2 class="ui header">
+                <i class="upload icon"></i>
+                <div class="content">
+                Add Files
+                <div class="sub header">Add a new capture file</div>
+                </div>
+            </h2>
+        </div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
     </div>
+</div>
+
+<div class="ui divider"></div>
+
+<div class="ui grid">
+        <div class="three wide column"></div>
+        <div class="ten wide column">
+            <form class="form-horizontal form-inline" method="post" enctype="multipart/form-data">
+
+                <div class="ui form">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-actions">
+                            <button type="submit" class="ui blue button">Submit</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+        <div class="three wide column"></div>
 </div>
 {% endblock content %}

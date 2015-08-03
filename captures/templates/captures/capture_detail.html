@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block menu2 %}
+    {% include "captures_menu2.html" %}
+{% endblock menu2 %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="ui four column row">
+        <div class="column">
+            <h2 class="ui header">
+                <i class="list icon"></i>
+                <div class="content">
+                Analyze "{{ object }}"
+                <div class="sub header">Analyze Capture File</div>
+                </div>
+            </h2>
+        </div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+    </div>
+</div>
+
+<div class="ui divider"></div>
+
+{% if request.session.capture %}
+
+{% else %}
+    There is no capture files selected. <br> Use the "list files" button to select a capture file. <br><br>
+    <a href="{% url "captures:capture-list" %}" class="ui floated small primary labelled icon button"><i class="list icon"></i> List File</a>
+{% endif %}
+
+
+
+
+
+{% endblock content %}
