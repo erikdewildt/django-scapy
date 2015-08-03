@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/favicon.ico">
+    <title>{% block title %}Django-Scapy{% endblock %}</title>
+
+    <!--- Stylesheets --->
+    <link rel="stylesheet" type="text/css" href="{% static "css/semantic/semantic.min.css" %}">
+    <!--- Custom stylesheet <link rel="stylesheet" type="text/css" href="{# static "css/base.css" #}"> --->
+
+    <!--- JavaScript --->
+    <script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>
+    <script src="{% static "css/semantic/semantic.min.js" %}"></script>
+
+</head>
+<body>
+
+{% block menu1 %}
+    {% include "menu1.html" %}
+{% endblock menu1 %}
+
+{% block menu2 %}
+{% endblock menu2 %}
+
+{% block statusbar %}
+    {# include "statusbar.html" #}
+{% endblock statusbar %}
+
+<div class="ui segment">
+    {% block content %}
+    {% endblock content %}
+</div>
+
+{% block footer %}
+{% endblock footer %}
+
+<script type="application/javascript">
+    $('.ui.dropdown')
+    .dropdown()
+    ;
+</script>
+
+</body>
+</html>

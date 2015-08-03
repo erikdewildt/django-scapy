@@ -1,14 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<ul>
-    {% for capture in captures %}
-        <li>{{ capture.name }} - {{ capture.file }}</li>
-    {% endfor %}
-</ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block menu2 %}
+    {% include "captures_menu2.html" %}
+{% endblock menu2 %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="ui four column row">
+        <div class="column">
+            <h2 class="ui header">
+                <i class="settings icon"></i>
+                <div class="content">
+                Files
+                <div class="sub header">Available capture files</div>
+                </div>
+            </h2>
+        </div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+    </div>
+</div>
+
+<div class="ui divider"></div>
+
+<div class="ui grid" >
+    <div class="ui row">
+        <div class="twelve wide column">
+            <table class="ui compact blue selectable celled striped table">
+                <thead class="full-width">
+                    <tr>
+                        <th>
+                            <div class="ui fitted checkbox">
+                              <input type="checkbox">
+                                <label></label>
+                            </div>
+                        </th>
+                        <th>Name</th>
+                        <th>Filename</th>
+                        <th>Description</th>
+                        <th>Size</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for capture in captures %}
+                        <tr>
+                            <td class="collapsing">
+                                <div class="ui fitted checkbox">
+                                  <input type="checkbox"> <label></label>
+                                </div>
+                            </td>
+                            <td>{{ capture.name }}</td>
+                            <td>{{ capture.filename }}</td>
+                            <td>{{ capture.description }}</td>
+                            <td>{{ capture.file.size|filesizeformat }}</td>
+                            <td class="collapsing">
+                                <div class="ui icon buttons">
+                                    <button class="ui button">
+                                        <i class="search icon"></i>
+                                    </button>
+                                    <button class="ui button">
+                                        <i class="edit icon"></i>
+                                    </button>
+                                    <button class="ui button">
+                                        <i class="trash icon"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot class="full-width">
+                <tr>
+                    <th></th>
+                    <th colspan="5">
+                        <div class="ui small button">
+                            <i class="trash icon"></i> Remove
+                        </div>
+                        <div class="ui small button">
+                            <i class="tags icon"></i>Label
+                        </div>
+                        <a href="{% url "captures:capture-new" %}" class="ui right floated small primary labelled icon button"><i class="add icon"></i> Add File</a>
+                      </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="four wide column">
+            <div class="ui top blue attached segment">
+                <h3 class="ui dividing header">
+                    Summary
+                </h3>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Total files:</td><td></td>
+                        </tr>
+                        <tr>
+                            <td>Total size:</td><td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

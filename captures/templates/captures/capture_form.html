@@ -1,22 +1,34 @@
-{% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <form class="form-horizontal form-inline" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <h2>Upload Capture</h2>
+{% extends "base.html" %}
 
-    <div class="ui form">
-        {{ form|crispy }}
-    </div>
+{% block menu2 %}
+    {% include "captures_menu2.html" %}
+{% endblock menu2 %}
 
-    <div class="form-actions">
-        <button type="submit" class="ui green button">Submit</button>
+{% block content %}
+<div class="ui two column grid">
+    <div class="column">
+        <form class="form-horizontal form-inline" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Upload Capture</h2>
+
+            <div class="ui form">
+
+
+                <label for="id_name">Name:</label>
+                <input id="id_name" maxlength="64" name="name" type="text" /><
+
+
+                <label for="id_description">Description:</label>
+                <textarea cols="40" id="id_description" name="description" rows="10"></textarea>
+
+                <label for="id_file">File:</label> <input id="id_file" name="file" type="file" /></p>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="ui blue button">Submit</button>
+            </div>
+        </form>
     </div>
-</form>
-</body>
-</html>
+</div>
+{% endblock content %}

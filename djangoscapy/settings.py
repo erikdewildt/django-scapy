@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
+    'crispy_forms'
     'captures',
 )
 
@@ -106,11 +106,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+    '/static/',
+)
 
 # User uploaded files
 MEDIA_ROOT = 'media/'
 MEDIA_URL = '/media/'
 
-# This rocks: a template pack for handling Semantic-UI Form.
-# Be warned it' a WIP. The normal Crispy Form templates are overruled in /templates/semantic-ui
+# Crispy Forms
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
