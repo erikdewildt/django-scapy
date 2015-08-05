@@ -11,8 +11,17 @@
         Analyze
         <i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item" href="{% url "captures:capture-list" %}"><i class="list icon"></i> List</a>
-          <a class="item" href="{% url "captures:capture-add" %}"><i class="upload icon"></i> Add</a>
+          <a class="item" href="{% if request.session.capture_id %}
+                                    {% url "captures:capture-detail" request.session.capture_id %}
+                                {% else %}
+                                    {% url "captures:capture-detail" -1 %}
+                                {% endif %}
+                                "><i class="list icon"></i> Details</a>
         </div>
     </div>
+     <div class="right menu">
+        <div class="ui item">
+          Working on: {{ request.session.capture_name }}
+        </div>
+     </div>
 </div>

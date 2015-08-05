@@ -31,6 +31,29 @@
 {% endblock statusbar %}
 
 <div class="ui segment">
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="ui negative icon message">
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+            <div class="ui warning icon message">
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="ui positive icon message">
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            <div class="ui violet icon message">
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}
+            {% endif %}
+                <i class="close icon"></i>
+                <i class="inbox icon"></i>
+                    <div class="content">
+                    <div class="header">
+                      {{ message }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     {% block content %}
     {% endblock content %}
 </div>
@@ -39,15 +62,20 @@
 {% endblock footer %}
 
 <script type="application/javascript">
+    {# Dropdown menu #}
     $('.ui.dropdown')
     .dropdown()
     ;
 
-    $('.button')
-    .popup({
-        inline: true
-      })
+    {# Messages close function #}
+    $('.message .close')
+    .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade');
+    })
     ;
+
 </script>
 
 </body>
