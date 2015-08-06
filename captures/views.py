@@ -4,12 +4,14 @@ from django.http import Http404
 from django.shortcuts import redirect
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.views.generic.detail import DetailView
 
+from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 
+from scapy.all import *
+
 from .forms import CaptureForm
-from .models import Capture
+from .models import Capture, capture_files_storage
 
 
 class CaptureCreate(CreateView):
@@ -64,6 +66,19 @@ class CaptureDetail(DetailView):
     """
     model = Capture
     allow_empty = True
+    context_object_name = 'capture'
+
+    def get_context_data(self, **kwargs):
+        context = super(CaptureDetail, self).get_context_data(**kwargs)
+        file = capture_files_storage.base_location + "/" + str(self.object.file)
+        packets = rdpcap(capture_files_storage.base_location + "/" + str(self.object.file))
+        context['number_of_packets'] = len(packets)
+        packet_list = []
+        for pkt in packets:
+            packet_list.append(pkt.show())
+
+        context['packets_list'] = packet_list
+        return context
 
     def get(self, request, *args, **kwargs):
         """
@@ -79,9 +94,13 @@ class CaptureDetail(DetailView):
             request.session['capture_id'] = self.object.id
             request.session['capture_name'] = self.object.name
         except Http404:
+            request.session['capture_id'] = 0
+            request.session['capture_name'] = ''
             # redirect here
-            messages.add_message(request, messages.ERROR, 'No capture file selected. Please select a capture file first.')
+            messages.add_message(request, messages.ERROR, 'No valid capture file selected. Please select a capture file.')
             url = reverse_lazy('captures:capture-list')
             return redirect(url)
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
+
+

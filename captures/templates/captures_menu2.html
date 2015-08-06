@@ -11,17 +11,22 @@
         Analyze
         <i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item" href="{% if request.session.capture_id %}
-                                    {% url "captures:capture-detail" request.session.capture_id %}
-                                {% else %}
-                                    {% url "captures:capture-detail" -1 %}
-                                {% endif %}
-                                "><i class="list icon"></i> Details</a>
+            {% if not request.session.capture_id %}
+                <a class="disabled item" href="">
+                    <i class="list icon"></i> Details
+                </a>
+            {% else %}
+                <a class="item" href="{% url "captures:capture-detail" request.session.capture_id %}">
+                    <i class="list icon"></i> Details
+                </a>
+            {% endif %}
         </div>
     </div>
      <div class="right menu">
-        <div class="ui item">
-          Working on: {{ request.session.capture_name }}
-        </div>
+         {% if request.session.capture_name %}
+             <div class="ui item">
+                 Working on: {{ request.session.capture_name }}
+             </div>
+         {% endif %}
      </div>
 </div>

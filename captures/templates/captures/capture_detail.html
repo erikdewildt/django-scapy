@@ -11,7 +11,7 @@
             <h2 class="ui header">
                 <i class="list icon"></i>
                 <div class="content">
-                Analyze "{{ object }}"
+                Analyze "{{ capture }}"
                 <div class="sub header">Analyze Capture File</div>
                 </div>
             </h2>
@@ -23,6 +23,14 @@
 </div>
 
 <div class="ui divider"></div>
-
+    Filename: {{ capture.name }} <br>
+    Description: {{ capture.description }} <br>
+    Size: {{ capture.file_size|filesizeformat }} <br>
+    <br>
+    Number of packets: {{ number_of_packets }} <br>
+    Packets:
+    {% for packet in packets %}
+        {{ packet }}
+    {% endfor %}
 
 {% endblock content %}
