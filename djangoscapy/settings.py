@@ -117,3 +117,36 @@ MEDIA_URL = '/media/'
 
 # Crispy Forms
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
+
+
+"""
+Disables the migration module when an environment setting "DISABLE_MIGRATIONS"
+is set to '1'. This will speed up testing by a factor 10 as the testing DB will be created by using the current
+data in the models instead of running all migrates.
+
+Inspired by https://gist.github.com/NotSqrt/5f3c76cd15e40ef62d09
+and https://github.com/henriquebastos/django-test-without-migrations
+
+Unfortunately we can't use the django-test-without-migrations module as it breaks
+pycharms test runner.
+
+Warning: to use it in development you have to provide an extra OS Environment setting:
+bash:
+export DISABLE_MIGRATIONS=1
+or
+windows:
+set DISABLE_MIGRATIONS=1
+"""
+
+
+class DisableMigrations(object):
+
+    def __contains__(self, item):
+        return True
+
+    def __getitem__(self, item):
+        return "nomigrations"
+
+if os.getenv('DISABLE_MIGRATIONS') == '1':
+    print("disabling migrations")
+    MIGRATION_MODULES = DisableMigrations()
